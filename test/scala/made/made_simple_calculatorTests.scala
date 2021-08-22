@@ -1,7 +1,8 @@
 // See LICENSE.txt for license details.
-package problems
+package made
 
 import chisel3.iotesters.PeekPokeTester
+import chisel3.iotesters.Driver
 
 class made_simple_calculatorTests(c: made_simple_calculator) extends PeekPokeTester(c) {
     val input_0 = Seq(11,3,6,13)            // -36       =
@@ -22,7 +23,7 @@ class made_simple_calculatorTests(c: made_simple_calculator) extends PeekPokeTes
     println("------------------------------")
     */
     
-    val x = 4
+    val x = 1
     
     for(i <- 0 until 10){
        step(1) 
@@ -37,5 +38,8 @@ class made_simple_calculatorTests(c: made_simple_calculator) extends PeekPokeTes
     println("SUCCESS")
 }
 
-
-//println(getVerilog(new simple_calculator))
+object made_simple_calculatorTests extends App{
+  Driver(() => new made_simple_calculator()) { calculator =>
+    new made_simple_calculatorTests(calculator)
+  }
+}

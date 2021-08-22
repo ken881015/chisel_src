@@ -96,16 +96,6 @@ object Launcher {
       Driver.execute(() => new VendingMachineSwitch(), manager) {
         (c) => new VendingMachineSwitchTests(c)
       }
-    },
-	"made_simple_calculator" -> { (manager: TesterOptionsManager) =>
-      Driver.execute(() => new made_simple_calculator(), manager) {
-        (c) => new made_simple_calculatorTests(c)
-      }
-    },
-	"made_TrafficLight" -> { (manager: TesterOptionsManager) =>
-      Driver.execute(() => new made_TrafficLight(4.U,1.U), manager) {
-        (c) => new made_TrafficLightTests(c)
-      }
     }
   )
 
