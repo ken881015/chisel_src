@@ -8,6 +8,7 @@ import chisel3._
 // This is example of multiplexer 2-to-1 with 'sel' as control signal
 // Multiplexed inputs are 'in0' and 'in1'
 //
+
 class Mux2 extends Module {
   val io = IO(new Bundle {
     val sel = Input(UInt(1.W))
@@ -16,6 +17,16 @@ class Mux2 extends Module {
     val out = Output(UInt(1.W))
   })
   io.out := (io.sel & io.in1) | (~io.sel & io.in0)
+}
+
+object Mux2 {
+  def apply (sel : UInt , in0 : UInt , in1 : UInt) = {
+    val m = Module( new Mux2())
+	m.io.sel := sel
+	m.io.in0 := in0
+	m.io.in1 := in1
+	m.io.out
+  }
 }
 
 // Problem:
@@ -33,6 +44,7 @@ class Mux4 extends Module {
     val out = Output(UInt(1.W))
   })
 
+  /*
   val m0 = Module(new Mux2())
   m0.io.sel := io.sel(0)
   m0.io.in0 := io.in0
@@ -48,9 +60,15 @@ class Mux4 extends Module {
   m2.io.sel := io.sel(1)
   m2.io.in0 := m0.io.out
   m2.io.in1 := m1.io.out
-
-
+  */
+  
   // make the compile process happy, needs to be substituted by the output of the Mux
-  io.out := m2.io.out
+  //io.out := m2.io.out
   //Implement above ----------
+  
+  io.out := Mux2(io.sel(1),(Mux2(io.sel(0),io.in0,io.in1)),(Mux2(io.sel(0),io.in2,io.in3)))
+}
+
+object Mux4 extends App{
+  (new chisel3.stage.ChiselStage).emitVerilog(new Mux4())
 }
