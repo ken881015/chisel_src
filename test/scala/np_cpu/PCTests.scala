@@ -4,7 +4,8 @@ import chisel3.iotesters._
 
 class PCTests (pc : PC) extends PeekPokeTester(pc) {
   for(i <- 0 until 10){
-    expect(pc.io.out, (4*i))
+    expect(pc.io.pc_ptr, (4*i))
+	println("Hello!!!!")
 	step(1)
   }
 }
