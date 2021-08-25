@@ -15,6 +15,9 @@ class Try extends Module {
   "b101010101010101".asUInt(32.W),
   "b101010101010101".asUInt(32.W),
   "b101010101010101".asUInt(32.W))
+  
+  //val x_seq = Seq(0.U(5.W),2.U(5.W)) ++ Seq(3.U(5.W),6.U(5.W))
+  
   io.out := Inst_MEM(0)
 }
 

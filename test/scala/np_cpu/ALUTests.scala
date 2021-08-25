@@ -5,7 +5,7 @@ import chisel3.iotesters._
 class ALUTests (alu : ALU) extends PeekPokeTester(alu) {
   poke(alu.io.src1,5)
   poke(alu.io.src2,10)
-  expect(alu.io.out,5)
+  expect(alu.io.ALUout,5)
 }
 
 

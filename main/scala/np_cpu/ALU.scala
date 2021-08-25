@@ -1,42 +1,36 @@
 package np_cpu
 
 import chisel3._
+import chisel3.util._
 
 class ALUIO extends Bundle{
-  val src1 = Input(UInt(32.W))
-  val src2 = Input(UInt(32.W))
-  val func_code = Input(UInt(4.W))
-  val out  = Output(UInt(32.W))
+  val src1    = Input(UInt(32.W))
+  val src2    = Input(UInt(32.W))
+  val shamt   = Input(UInt(5.W))
+  val ALUCtrl = Input(UInt(4.W))
+  val ALUout  = Output(UInt(32.W))
 }
 
-object ALU {
-
-  //R type
-  val ALU_ADD    = 0.U(4.W)
-  val ALU_SUB    = 1.U(4.W)
-  val ALU_AND    = 2.U(4.W)
-  val ALU_OR     = 3.U(4.W)
-  val ALU_XOR    = 4.U(4.W)
-  val ALU_SLT    = 5.U(4.W)
-  
-  //I type
-  val ALU_SLL    = 6.U(4.W)
-  val ALU_SLA    = 7.U(4.W)
-  val ALU_SRL    = 8.U(4.W)
-  val ALU_SRA    = 9.U(4.W)
-  
-  
-  val ALU_Default= 15.U(4.W)
-}
+import ALU_ctrl._
 
 class ALU extends Module{
   val io = IO(new ALUIO)
-  io.out := 0.U
+  
+  io.ALUout := MuxLookup(io.ALUCtrl,0.U,Seq(
+    ctrl_ADD -> (io.src1 + io.src2)   ,
+    ctrl_SUB -> (io.src1 - io.src2)   ,
+    ctrl_AND -> (io.src1 & io.src2)   ,
+    ctrl_OR  -> (io.src1 | io.src2)   ,
+    ctrl_XOR -> (io.src1 ^ io.src2)   ,
+    ctrl_SLL -> (io.src1 << io.shamt) ,
+    ctrl_SRL -> (io.src1 >> io.shamt) ,
+    ctrl_SRA -> (io.src1.asSInt >> io.shamt).asUInt
+  )) 
 }
 
 
 // verilog generator
-// object ALU extends App {
-  // (new chisel3.stage.ChiselStage).emitVerilog(new ALU())
-// }
+object ALU extends App {
+  (new chisel3.stage.ChiselStage).emitVerilog(new ALU())
+}
 

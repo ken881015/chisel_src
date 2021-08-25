@@ -17,16 +17,20 @@ class RegFileIO extends Bundle {
 class RegFile extends Module {
   val io = IO(new RegFileIO)
   //val regs = Mem(32, UInt(32.W)) //How about Vec?
-  val regs = RegInit(VecInit(Seq.fill(32 - 1)(0.U(32.W))))
+  //val regs = RegInit(VecInit(Seq.fill(32 - 1)(0.U(32.W))))
+  
+  val regs = RegInit(VecInit(Seq.fill(18)(0.U(32.W))
+                           ++Seq(42.asUInt(32.W),33.asUInt(32.W))
+						   ++Seq.fill(12)(0.U(32.W))))
   
   io.rdata1 := regs(io.raddr1)
   io.rdata2 := regs(io.raddr2)
   when(io.wen === 1.U && io.waddr =/= 0.U){
-    regs(io.waddr) := io.wdata
+  regs(io.waddr) := io.wdata
   }
 }
 
 // verilog generator
-// object RegFile extends App {
- // (new chisel3.stage.ChiselStage).emitVerilog(new RegFile())
-// }
+object RegFile extends App {
+ (new chisel3.stage.ChiselStage).emitVerilog(new RegFile())
+}
