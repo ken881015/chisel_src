@@ -18,6 +18,7 @@ class InstMemIO extends Bundle{
 class InstMem extends Module{
   val io = IO(new InstMemIO())
   
+  //ROM
   val mem = VecInit(
   "b00000010".U,               //ADD $s1 $s2 $s3 00000010_01010011_10001000_00100000
   "b01010011".U,
