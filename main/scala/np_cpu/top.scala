@@ -37,6 +37,7 @@ class top extends Module{
   val Controller = Module(new Controller())
   val ALU_ctrl   = Module(new ALU_ctrl())
   val ALU        = Module(new ALU())
+  val DataMem    = Module(new DataMem())
   
   
   //InstMem Port
@@ -53,10 +54,9 @@ class top extends Module{
   //RegFile Port
   RegFile.io.raddr1 := InstMem.io.rs_addr
   RegFile.io.raddr2 := InstMem.io.rt_addr
-  //Undone
-  RegFile.io.wen   := 0.U
-  RegFile.io.wdata := 0.U
-  RegFile.io.waddr := 0.U
+  RegFile.io.wen   := Controller.io.RegWrite
+  RegFile.io.wdata := Mux(Controller.io.MemToReg.asBool,DataMem.io.rdata,ALU.io.ALUout)
+  RegFile.io.waddr := Mux(Controller.io.RegDst.asBool,InstMem.io.rd_addr,InstMem.io.rt_addr)
   
   //Controller Port
   Controller.io.opcode := InstMem.io.opcode
@@ -80,6 +80,13 @@ class top extends Module{
   ALU.io.ALUCtrl := ALU_ctrl.io.ALUCtrl
   io.ALUout := ALU.io.ALUout
   
+  //DataMem Port
+  DataMem.io.wen   := Controller.io.MemWrite
+  DataMem.io.waddr := ALU.io.ALUout
+  DataMem.io.wdata := RegFile.io.rdata2
+  DataMem.io.ren   := Controller.io.MemRead
+  DataMem.io.raddr := ALU.io.ALUout
+  
   
   
   
@@ -90,5 +97,6 @@ class top extends Module{
 }
 
 object top extends App{
-  (new chisel3.stage.ChiselStage).emitVerilog(new top())
+  //(new chisel3.stage.ChiselStage).emitVerilog(new top())
+  chisel3.Driver.execute(args, () => new top())
 }

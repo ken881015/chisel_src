@@ -26,8 +26,16 @@ class RegFile extends Module {
   io.rdata1 := regs(io.raddr1)
   io.rdata2 := regs(io.raddr2)
   when(io.wen === 1.U && io.waddr =/= 0.U){
-  regs(io.waddr) := io.wdata
+    regs(io.waddr) := io.wdata
   }
+  
+  
+  //printf : print during simulation
+  /*
+  for(i <- 0 until 32){
+	printf("reg(%d) is %d\n",i.U,regs(i))
+  }
+  */
 }
 
 // verilog generator

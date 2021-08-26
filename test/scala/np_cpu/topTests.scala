@@ -3,6 +3,7 @@ package np_cpu
 import chisel3.iotesters._
 
 class topTests (top : top) extends PeekPokeTester(top) {
+  println("$s2 = 42 , $s3 = 33")
   println("ADD $s1 $s2 $s3")
   // println("opcode = " + peek(top.io.opcode).toString)
   // println("rs_addr = " + peek(top.io.rs).toString)
@@ -37,7 +38,7 @@ class topTests (top : top) extends PeekPokeTester(top) {
   println("ALUout = " + peek(top.io.ALUout).toString)
   println("===========================")
   step(1)
-  println("LW $s1 100(%s2)")
+  println("LW $s1 4(%s4)")
   // println("opcode = " + peek(top.io.opcode).toString)
   // println("rs_addr = " + peek(top.io.rs).toString)
   // println("rt_addr = " + peek(top.io.rt).toString)
@@ -54,7 +55,7 @@ class topTests (top : top) extends PeekPokeTester(top) {
   println("ALUout = " + peek(top.io.ALUout).toString)
   println("===========================")
   step(1)
-  println("SW $s3  32(%s4)")
+  println("SW $s3  24(%s4)")
   // println("opcode = " + peek(top.io.opcode).toString)
   // println("rs_addr = " + peek(top.io.rs).toString)
   // println("rt_addr = " + peek(top.io.rt).toString)

@@ -12,7 +12,6 @@ class ControllerIO extends Bundle{
   val MemWrite = Output(UInt(1.W))
   val MemRead  = Output(UInt(1.W))
   val MemToReg = Output(UInt(1.W))
-  //val RegDst = Output(UInt(1.W))
 }
 
 class Controller extends Module{
