@@ -2,9 +2,13 @@ package np_cpu
 
 import chisel3._
 import chisel3.util._
+import parameter._
 
 class top extends Module{
   val io = IO(new Bundle{
+    //PC Port
+	val pc_ptr = Output(UInt(8.W))
+  
     //InstMem Output Port
     // val opcode  = Output(UInt(6.W))
     // val rs_addr = Output(UInt(5.W))
@@ -26,8 +30,9 @@ class top extends Module{
 	// val ALUCtrl  = Output(UInt(4.W))
 	
 	//ALU Output Port
-	val ALUout = Output(UInt(32.W))
+	// val ALUout = Output(UInt(32.W))
 	
+	//Controller Port
 	// val reg_dst  = Output(UInt(32.W))
 	
   })
@@ -78,7 +83,7 @@ class top extends Module{
   ALU.io.src2    := alu_src2
   ALU.io.shamt   := InstMem.io.shamt
   ALU.io.ALUCtrl := ALU_ctrl.io.ALUCtrl
-  io.ALUout := ALU.io.ALUout
+  // io.ALUout := ALU.io.ALUout
   
   //DataMem Port
   DataMem.io.wen   := Controller.io.MemWrite
@@ -87,13 +92,21 @@ class top extends Module{
   DataMem.io.ren   := Controller.io.MemRead
   DataMem.io.raddr := ALU.io.ALUout
   
+  //Branch Part
+  val branch_taken = Wire(Bool())
+  branch_taken := ( ALU.io.ALUzero && Controller.io.opcode === op_BEQ) ||
+                  (!ALU.io.ALUzero && Controller.io.opcode === op_BNE)
+				  
+  //Jump
   
-  
-  
-  
-  
-  
-  // io.reg_dst  := Mux(Controller.io.RegDst.asBool(),InstMem.io.rd_addr,InstMem.io.rt_addr)
+  //PC
+  PC.io.pc_in := PC.io.pc_ptr + 4.U
+  when (Controller.io.Jump.asBool){
+    PC.io.pc_in := (InstMem.io.imm_26 << 2)(7,0)
+  }.elsewhen(branch_taken){
+    PC.io.pc_in := PC.io.pc_ptr + 4.U + (InstMem.io.imm_16 << 2)(7,0)
+  }
+  io.pc_ptr := PC.io.pc_ptr
 }
 
 object top extends App{

@@ -9,9 +9,10 @@ class ALUIO extends Bundle{
   val shamt   = Input(UInt(5.W))
   val ALUCtrl = Input(UInt(4.W))
   val ALUout  = Output(UInt(32.W))
+  val ALUzero = Output(Bool())
 }
 
-import ALU_ctrl._
+import parameter._
 
 class ALU extends Module{
   val io = IO(new ALUIO)
@@ -25,7 +26,12 @@ class ALU extends Module{
     ctrl_SLL -> (io.src1 << io.shamt) ,
     ctrl_SRL -> (io.src1 >> io.shamt) ,
     ctrl_SRA -> (io.src1.asSInt >> io.shamt).asUInt
-  )) 
+  ))
+
+  io.ALUzero := false.B
+  when(io.ALUCtrl === ctrl_SUB){
+	io.ALUzero := Mux(io.src1 === io.src2 , true.B, false.B)
+  }
 }
 
 

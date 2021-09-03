@@ -31,11 +31,11 @@ class DataMem extends Module{
   when(io.ren.asBool){
     io.rdata := Cat(mem(io.raddr),mem(io.raddr + 1.U),mem(io.raddr + 2.U),mem(io.raddr + 3.U))
   }
-  /*
-  for(i <- 0 until 32){
+  
+  for(i <- 0 until 5){
     printf("Mem[%d] is %d\n",(4.U * i.U),Cat(Cat(mem(4*i) ,mem((4*i) + 1),mem((4*i) + 2),mem((4*i) + 3))))
   }
-  */
+  
 }
 
 object DataMem extends App{

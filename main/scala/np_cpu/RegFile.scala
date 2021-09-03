@@ -19,9 +19,7 @@ class RegFile extends Module {
   //val regs = Mem(32, UInt(32.W)) //How about Vec?
   //val regs = RegInit(VecInit(Seq.fill(32 - 1)(0.U(32.W))))
   
-  val regs = RegInit(VecInit(Seq.fill(18)(0.U(32.W))
-                           ++Seq(42.asUInt(32.W),33.asUInt(32.W))
-						   ++Seq.fill(12)(0.U(32.W))))
+  val regs = RegInit(VecInit(Seq.fill(31)(0.U(32.W)) ++ Seq("h80000000".U(32.W))))
   
   io.rdata1 := regs(io.raddr1)
   io.rdata2 := regs(io.raddr2)
@@ -31,11 +29,13 @@ class RegFile extends Module {
   
   
   //printf : print during simulation
+            //$t0~$s7
   /*
-  for(i <- 0 until 32){
+  for(i <- 8 until 24){ 
 	printf("reg(%d) is %d\n",i.U,regs(i))
   }
   */
+  
 }
 
 // verilog generator

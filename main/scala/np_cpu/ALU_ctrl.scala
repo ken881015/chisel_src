@@ -8,29 +8,11 @@ class ALU_ctrlIO extends Bundle{
   val ALUCtrl  = Output(UInt(4.W))
 }
 
-object ALU_ctrl /*extends App*/{
-  val func_ADD    = 32.U(6.W)
-  val func_SUB    = 34.U(6.W)
-  val func_AND    = 36.U(6.W)
-  val func_OR     = 37.U(6.W)
-  val func_XOR    = 38.U(6.W)
-  val func_SLL    = 0.U (6.W)
-  val func_SRL    = 2.U (6.W)
-  val func_SRA    = 3.U (6.W)
-  
-  val ctrl_ADD    = 11.U(4.W)
-  val ctrl_SUB    = 12.U(4.W)
-  val ctrl_AND    = 2.U (4.W)
-  val ctrl_OR     = 3.U (4.W)
-  val ctrl_XOR    = 6.U (4.W)
-  val ctrl_SLL    = 4.U (4.W)
-  val ctrl_SRL    = 5.U (4.W)
-  val ctrl_SRA    = 8.U (4.W)
-  
-  //(new chisel3.stage.ChiselStage).emitVerilog(new ALU_ctrl())
+object ALU_ctrl extends App{  
+  (new chisel3.stage.ChiselStage).emitVerilog(new ALU_ctrl())
 }
 
-import ALU_ctrl._
+import parameter._
 
 class ALU_ctrl extends Module{
   val io = IO(new ALU_ctrlIO())
@@ -38,7 +20,9 @@ class ALU_ctrl extends Module{
   io.ALUCtrl := 0.U
   
   when(io.ALUOp === 0.U){ //LOAD and STORE
-    io.ALUCtrl := "b1011".U
+    io.ALUCtrl := ctrl_ADD
+  }.elsewhen(io.ALUOp === 1.U){
+    io.ALUCtrl := ctrl_SUB
   }.elsewhen(io.ALUOp === 2.U){ //R-type
     when(io.func === func_ADD){
 	  io.ALUCtrl := ctrl_ADD
