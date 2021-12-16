@@ -80,6 +80,6 @@ class InstMem extends Module{
   
 }
 
-object InstMem extends App{
-  (new chisel3.stage.ChiselStage).emitVerilog(new InstMem())
-}
+// object InstMem extends App{
+//   (new chisel3.stage.ChiselStage).emitVerilog(new InstMem())
+// }

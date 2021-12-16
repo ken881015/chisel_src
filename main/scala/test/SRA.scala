@@ -31,6 +31,6 @@ object SRA extends App{
 }
 */
 
-object SRATests extends App {
-  chisel3.iotesters.Driver.execute(args, () => new SRA())(c => new SRATests(c))
-}
+// object SRATests extends App {
+//   chisel3.iotesters.Driver.execute(args, () => new SRA())(c => new SRATests(c))
+// }

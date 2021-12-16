@@ -38,6 +38,6 @@ class DataMem extends Module{
   
 }
 
-object DataMem extends App{
-  (new chisel3.stage.ChiselStage).emitVerilog(new DataMem())
-}
+// object DataMem extends App{
+//   (new chisel3.stage.ChiselStage).emitVerilog(new DataMem())
+// }

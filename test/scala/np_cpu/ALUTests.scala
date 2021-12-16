@@ -1,7 +1,7 @@
 package np_cpu
 
 import chisel3.iotesters._
-import ALU_ctrl._
+// import ALU_ctrl._
 import parameter._
 
 class ALUTests (alu : ALU) extends PeekPokeTester(alu) {

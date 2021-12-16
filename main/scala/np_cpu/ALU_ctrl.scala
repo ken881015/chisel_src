@@ -8,9 +8,9 @@ class ALU_ctrlIO extends Bundle{
   val ALUCtrl  = Output(UInt(4.W))
 }
 
-object ALU_ctrl extends App{  
-  (new chisel3.stage.ChiselStage).emitVerilog(new ALU_ctrl())
-}
+// object ALU_ctrl extends App{  
+//   (new chisel3.stage.ChiselStage).emitVerilog(new ALU_ctrl())
+// }
 
 import parameter._
 

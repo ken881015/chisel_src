@@ -79,6 +79,6 @@ class Controller extends Module{
   ))
 }
 
-object Controller extends App{
-  (new chisel3.stage.ChiselStage).emitVerilog(new Controller())
-}
+// object Controller extends App{
+//   (new chisel3.stage.ChiselStage).emitVerilog(new Controller())
+// }

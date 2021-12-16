@@ -109,7 +109,7 @@ class top extends Module{
   io.pc_ptr := PC.io.pc_ptr
 }
 
-object top extends App{
-  //(new chisel3.stage.ChiselStage).emitVerilog(new top())
-  chisel3.Driver.execute(args, () => new top())
-}
+// object top extends App{
+//   //(new chisel3.stage.ChiselStage).emitVerilog(new top())
+//   chisel3.Driver.execute(args, () => new top())
+// }

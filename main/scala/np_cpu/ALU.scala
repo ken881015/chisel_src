@@ -35,8 +35,8 @@ class ALU extends Module{
 }
 
 
-// verilog generator
-object ALU extends App {
-  (new chisel3.stage.ChiselStage).emitVerilog(new ALU())
-}
+// // verilog generator
+// object ALU extends App {
+//   (new chisel3.stage.ChiselStage).emitVerilog(new ALU())
+// }
 
