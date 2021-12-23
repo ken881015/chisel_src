@@ -3,14 +3,28 @@ package aias_lab1
 import chisel3.iotesters.{PeekPokeTester,Driver}
 
 class FullAdderTests (fa : FullAdder) extends PeekPokeTester(fa){
-  poke(fa.io.A,0)
-  poke(fa.io.B,1)
-  poke(fa.io.Cin,0)
-  
-  expect(fa.io.S,1)
-  expect(fa.io.Cout,0)
+  for(a <- 0 until 2){
+    for(b <- 0 until 2){
+	  for(c <- 0 until 2){
+	    poke(fa.io.A,a)
+		poke(fa.io.B,b)
+		poke(fa.io.Cin,c)
+		
+		var x = c & (a^b)
+		var y = a & b
+		
+		expect(fa.io.S,(a^b^c))
+		expect(fa.io.Cout,(x|y))
+		
+		step(1)
+	  }
+	}
+  }
 }
 
+//>>>test:runMain aias_lab1.FAtester -td generated/ -tbn verilator
 object FAtester extends App{
-    chisel3.iotesters.Driver.execute(args,() => new FullAdder)(c => new FullAdderTests(c))
+  Driver.execute(args,() => new FullAdder()){
+	c => new FullAdderTests(c)
+  }
 }
