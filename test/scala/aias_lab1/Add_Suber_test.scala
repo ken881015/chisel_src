@@ -11,29 +11,16 @@ class Add_SuberTests (as : Add_Suber) extends PeekPokeTester(as){
 	    poke(as.io.in_1,in1)
 		poke(as.io.in_2,in2)
 		poke(as.io.op,op)
+		val answer = if(op==0){in1+in2}else{in1-in2} 
 		
-		val answer = if(op==0){
-		  //printf("(%d) + (%d) = %d\n",in1,in2,in1+in2)
-		  in1+in2
+		if(answer < -8 || answer > 7){
+          expect(as.io.o_f,1)
 		}else{
-		  //printf("(%d) - (%d) = %d\n",in1,in2,in1-in2)
-		  in1-in2
-		} 
-		
-		var output = peek(as.io.out)
-		
-		if (answer == output) {
-		  num_correct+=1
-		}else{
-		  expect(as.io.o_f,1)
+          expect(as.io.out,answer)
 		}
-		total+=1
-		step(1)
 	  }
 	}
   }
-  
-  printf("Total:%d Correct:%d\n",total,num_correct)
 }
 
 //>>>test:runMain aias_lab1.FAtester -td generated/ -tbn verilator

@@ -22,7 +22,7 @@ class FullAdder extends Module{
 
 //Verilog and FIRRTL file generator
 //>>>runMain aias_lab1.FADriver -td generated/FullAdder
-object FADriver extends App {
-    chisel3.Driver.execute(args, () => new FullAdder)
-}
+// object FADriver extends App {
+//     chisel3.Driver.execute(args, () => new FullAdder)
+// }
 

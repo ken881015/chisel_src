@@ -46,8 +46,6 @@ class Add_Suber extends Module{
   io.o_f := a2.io.Cout ^ a3.io.Cout
 }
 
-/*
-object ASDriver extends App{
-  Driver.execute(args,() => new Add_Suber)
-}
-*/
+// object ASDriver extends App{
+//   Driver.execute(args,() => new Add_Suber)
+// }
