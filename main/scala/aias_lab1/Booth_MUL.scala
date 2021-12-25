@@ -42,7 +42,7 @@ class Booth_MUL(width:Int) extends Module {
     when(op(i)==="b000".U | op(i)==="b111".U){ //0
       pp(i) := 0.U
     }.elsewhen(op(i)==="b001".U | op(i)==="b010".U){ //1
-      pp(i) := io.in1
+      pp(i) := Cat(io.in1(width-1),io.in1)
     }.elsewhen(op(i)==="b101".U | op(i)==="b110".U){ //-1
       pp(i) := Cat(neg_in1(width-1),neg_in1)
     }.elsewhen(op(i)==="b100".U){ //-2
@@ -66,7 +66,7 @@ class Booth_MUL(width:Int) extends Module {
   //   sspp(i) := spp(i).asUInt << (2*i)
   // }
 
-  io.out := spp.reduce(_+_).asUInt
+  io.out := spp.reduce(_+_)
 }
 
 object BMDriver extends App{
