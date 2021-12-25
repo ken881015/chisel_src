@@ -54,17 +54,11 @@ class Booth_MUL(width:Int) extends Module {
     }
   }
   
-  //Sign_extend
+  //Sign_extend , Shift
   val spp = Wire(Vec(half_width,UInt((2*width).W)))
   for(i <- 0 until half_width){
     spp(i) := Cat(Fill((width-1),pp(i)(width)),pp(i)) << (2*i)
   }
-
-  // //Shift
-  // val sspp = Wire(Vec(half_width,UInt((2*width).W)))
-  // for(i <- 0 until half_width){
-  //   sspp(i) := spp(i).asUInt << (2*i)
-  // }
 
   io.out := spp.reduce(_+_)
 }
