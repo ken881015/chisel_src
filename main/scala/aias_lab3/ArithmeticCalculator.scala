@@ -30,7 +30,7 @@ class ArithmeticCalculator extends Module{
   val cnt = RegInit(0.U(4.W))
   cnt := Mux(cnt === 9.U, 0.U , cnt + 1.U)
   val tick = WireDefault(false.B)
-  tick := cnt === 1.U
+  tick := cnt === 5.U
 
   
   // //0~9
@@ -38,18 +38,19 @@ class ArithmeticCalculator extends Module{
   number := io.key_in < 10.U
   // //+,-,x
   val operator = Wire(Bool())
-  operator := (io.key_in >= 10.U) || (io.key_in <= 12.U)
+  operator := (io.key_in >= 10.U) && (io.key_in <= 12.U)
   // //(,) parentheses
   val parentheses = Wire(Bool())
-  parentheses := (io.key_in >= 13.U) || (io.key_in <= 14.U)
+  parentheses := (io.key_in >= 13.U) && (io.key_in <= 14.U)
   //= equal sign
   val equal = Wire(Bool())
   equal := io.key_in === 15.U
   
   
   // operand Precedence
-  def op_precedence (in:UInt):UInt{
-    
+  def op_precedence (in:UInt): UInt = {
+    val precedence = Mux(in === 12.U, 2.U, 1.U)
+    precedence
   }
 
   when(tick){
@@ -69,6 +70,14 @@ class ArithmeticCalculator extends Module{
 
     }
   }
+
+  when(operator && (op_precedence(io.key_in) < op_precedence(stack.io.dataOut)) && !stack.io.empty){
+    stack.io.pop := true.B
+    postfix(ptr) := stack.io.dataOut
+    ptr := ptr + 1.U
+  }
+
+
   
     
 
