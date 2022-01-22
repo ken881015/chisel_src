@@ -63,7 +63,7 @@ class Booth_MUL(width:Int) extends Module {
   io.out := spp.reduce(_+_)
 }
 
-object BMDriver extends App{
-  //Driver.execute(args,() => new Booth_MUL(args(0).toInt))
-  Driver.execute(args,() => new Booth_MUL(8))
-}
+// object BMDriver extends App{
+//   //Driver.execute(args,() => new Booth_MUL(args(0).toInt))
+//   Driver.execute(args,() => new Booth_MUL(8))
+// }

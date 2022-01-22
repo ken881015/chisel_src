@@ -27,7 +27,7 @@ class VendingMachine(Prices:Seq[Int]) extends Module{
   io.out := false.B
 }
 
-object VMDriver extends App{
-  val Prices = Seq(30,40,50)
-  Driver.execute(args,()=>new VendingMachine(Prices))
-}
+// object VMDriver extends App{
+//   val Prices = Seq(30,40,50)
+//   Driver.execute(args,()=>new VendingMachine(Prices))
+// }

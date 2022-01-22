@@ -2,8 +2,6 @@ package aias_lab3
 
 import chisel3._
 import chisel3.util._
-import scala.languageFeature.postfixOps
-import scala.annotation.switch
 
 class ArithmeticCalculator extends Module{
   val io = IO(new Bundle{
@@ -89,6 +87,6 @@ class ArithmeticCalculator extends Module{
   }
 }
 
-object ACDriver extends App{
-  Driver.execute(args,() => new ArithmeticCalculator())
-}
+// object ACDriver extends App{
+//   Driver.execute(args,() => new ArithmeticCalculator())
+// }

@@ -114,9 +114,9 @@ class TrafficLight(Ytime:Int, Gtime:Int, Ptime:Int) extends Module {
   io.timer := cntReg
 }
 
-object TLDriver extends App{
-  val Ytime = 3
-  val Gtime = 7
-  val Ptime = 5
-  Driver.execute(args,() =>new TrafficLight(Ytime,Gtime,Ptime))
-}
+// object TLDriver extends App{
+//   val Ytime = 3
+//   val Gtime = 7
+//   val Ptime = 5
+//   Driver.execute(args,() =>new TrafficLight(Ytime,Gtime,Ptime))
+// }

@@ -141,6 +141,6 @@ class TrafficLight_v2(Ytime:Int, Gtime:Int, Ptime:Int) extends Module{
   }
 }
 
-object TLv2Driver extends App{
-  Driver.execute(args, () => new TrafficLight_v2(2,4,3))
-}
+// object TLv2Driver extends App{
+//   Driver.execute(args, () => new TrafficLight_v2(2,4,3))
+// }
