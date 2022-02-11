@@ -1,14 +1,14 @@
-package aias_lab1
+package aias_lab5
 
 import chisel3._
 import chisel3.util._
 
 class Add_Suber extends Module{
   val io = IO(new Bundle{
-    val in_1 = Input(UInt(4.W))
+  val in_1 = Input(UInt(4.W))
 	val in_2 = Input(UInt(4.W))
 	val op = Input(Bool()) // 0:ADD 1:SUB
-	val out = Output(SInt(4.W))
+	val out = Output(UInt(4.W))
 	val o_f = Output(Bool())
   })
   
@@ -41,7 +41,7 @@ class Add_Suber extends Module{
   io.out := Cat(a3.io.S,
 				a2.io.S,
 				a1.io.S,
-				a0.io.S).asSInt
+				a0.io.S)
 				
   io.o_f := a2.io.Cout ^ a3.io.Cout
 }
